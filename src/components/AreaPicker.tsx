@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchAreas } from '../services/mealdb'
+import styles from './AreaPicker.module.css'
 
 interface Props {
   value: string
@@ -20,9 +21,16 @@ export function AreaPicker({ value, onChange }: Props) {
   if (isError) return <p>Failed to load areas.</p>
 
   return (
-    <div>
-      <label htmlFor="area-select">Cuisine / Area</label>
-      <select id="area-select" value={value} onChange={(e) => onChange(e.target.value)}>
+    <div className={styles.wrapper}>
+      <label className={styles.label} htmlFor="area-select">
+        Cuisine / Area
+      </label>
+      <select
+        className={styles.select}
+        id="area-select"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
         <option value="">-- Select an area --</option>
         {areas?.map((a) => (
           <option key={a.strArea} value={a.strArea}>

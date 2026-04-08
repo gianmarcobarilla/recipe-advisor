@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
 import { selectMeal } from '../services/recommendation'
+import styles from './ResultPage.module.css'
 
 export const ResultPage = () => {
   const location = useLocation()
@@ -37,34 +38,44 @@ export const ResultPage = () => {
   }
 
   if (isLoadingList || (pickedMeal && isLoadingDetail)) {
-    return <p>Finding a recipe for you…</p>
+    return (
+      <div className={styles.statePage}>
+        <p className={styles.stateText}>Finding a recipe for you…</p>
+      </div>
+    )
   }
 
   if (isError) {
     return (
-      <div>
-        <p>Something went wrong.</p>
-        <button onClick={() => navigate('/')}>Try again</button>
+      <div className={styles.statePage}>
+        <p className={styles.stateText}>Something went wrong.</p>
+        <button className={styles.btnBack} onClick={() => navigate('/')}>
+          Try again
+        </button>
       </div>
     )
   }
 
   if (!meals || meals.length === 0) {
     return (
-      <div>
-        <p>
-          No recipes found for <strong>{ingredient}</strong> + <strong>{area}</strong>.
+      <div className={styles.statePage}>
+        <p className={styles.stateText}>
+          No <strong>{area}</strong> recipes found for <strong>{ingredient}</strong>.
         </p>
-        <button onClick={() => navigate('/')}>Start over</button>
+        <button className={styles.btnBack} onClick={() => navigate('/')}>
+          Start over
+        </button>
       </div>
     )
   }
 
   if (index >= meals.length) {
     return (
-      <div>
-        <p>You've seen all the recipes we have for that combination!</p>
-        <button onClick={() => navigate('/')}>Start over</button>
+      <div className={styles.statePage}>
+        <p className={styles.stateText}>You've seen all the recipes for that combination!</p>
+        <button className={styles.btnBack} onClick={() => navigate('/')}>
+          Start over
+        </button>
       </div>
     )
   }
@@ -86,40 +97,56 @@ export const ResultPage = () => {
       ingredient,
       area,
     })
+    navigate('/history')
   }
 
   return (
-    <div>
-      <h1>Your recipe</h1>
-      <article>
+    <div className={styles.page}>
+      <p className={styles.title}>Here's your recipe</p>
+
+      <article className={styles.card}>
         <img
+          className={styles.image}
           src={mealDetail.strMealThumb}
           alt={mealDetail.strMeal}
           onError={(e) => {
             ;(e.target as HTMLImageElement).src = 'src/assets/images/recipe_placeholder.png'
           }}
         />
-        <h2>{mealDetail.strMeal}</h2>
-        <p>Category: {mealDetail.strCategory}</p>
-        <p>Area: {mealDetail.strArea}</p>
-        <a
-          href={`https://www.themealdb.com/meal/${mealDetail.idMeal}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          View full recipe ↗
-        </a>
+        <div className={styles.cardBody}>
+          <h1 className={styles.recipeName}>{mealDetail.strMeal}</h1>
+          <div className={styles.meta}>
+            <span className={styles.badge}>{mealDetail.strCategory}</span>
+            <span className={styles.badge}>{mealDetail.strArea}</span>
+          </div>
+          <a
+            className={styles.recipeLink}
+            href={`https://www.themealdb.com/meal/${mealDetail.idMeal}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            View full recipe ↗
+          </a>
+        </div>
       </article>
 
-      <button onClick={handleNewIdea} disabled={meals.length <= 1}>
-        New Idea
-      </button>
-
-      <section>
-        <p>Did it match your preference?</p>
-        <button onClick={() => handleFeedback(true)}>Like</button>
-        <button onClick={() => handleFeedback(false)}>Dislike</button>
+      <section className={styles.feedback}>
+        <p className={styles.feedbackQuestion}>Did it match your preference?</p>
+        <div className={styles.feedbackButtons}>
+          <button className={styles.btnLike} onClick={() => handleFeedback(true)}>
+            👍 Like
+          </button>
+          <button className={styles.btnDislike} onClick={() => handleFeedback(false)}>
+            👎 Dislike
+          </button>
+        </div>
       </section>
+
+      <div className={styles.actions}>
+        <button className={styles.btnNewIdea} onClick={handleNewIdea}>
+          Try another →
+        </button>
+      </div>
     </div>
   )
 }

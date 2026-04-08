@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { IngredientPicker } from '../components/IngredientPicker'
 import { AreaPicker } from '../components/AreaPicker'
+import styles from './WizardPage.module.css'
 
 export const WizardPage = () => {
   const navigate = useNavigate()
@@ -13,32 +14,38 @@ export const WizardPage = () => {
     navigate('/result', { state: { ingredient, area } })
   }
 
-  return (
-    <div>
-      <button onClick={() => navigate('/history')}>History</button>
-      {step === 1 && (
-        <div>
-          <p>Step 1 of 2</p>
-          <h1>Choose an ingredient</h1>
+  if (step === 1) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.card}>
+          <p className={styles.stepIndicator}>Step 1 of 2</p>
+          <h1 className={styles.title}>What ingredient?</h1>
           <IngredientPicker value={ingredient} onSelect={setIngredient} />
-          <button onClick={() => setStep(2)} disabled={!ingredient}>
-            Next
-          </button>
-        </div>
-      )}
-      {step === 2 && (
-        <div>
-          <p>Step 2 of 2</p>
-          <h1>Choose a cuisine</h1>
-          <AreaPicker value={area} onChange={setArea} />
-          <div>
-            <button onClick={() => setStep(1)}>Back</button>
-            <button onClick={handleSubmit} disabled={!area}>
-              Find a recipe
+          <div className={styles.actions}>
+            <button className={styles.btnPrimary} onClick={() => setStep(2)} disabled={!ingredient}>
+              Next →
             </button>
           </div>
         </div>
-      )}
+      </div>
+    )
+  }
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <p className={styles.stepIndicator}>Step 2 of 2</p>
+        <h1 className={styles.title}>Which cuisine?</h1>
+        <AreaPicker value={area} onChange={setArea} />
+        <div className={styles.actions}>
+          <button className={styles.btnSecondary} onClick={() => setStep(1)}>
+            ← Back
+          </button>
+          <button className={styles.btnPrimary} onClick={handleSubmit} disabled={!area}>
+            Find a recipe
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

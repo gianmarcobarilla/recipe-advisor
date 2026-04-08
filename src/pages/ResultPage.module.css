@@ -1,0 +1,145 @@
+.page {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: -0.01em;
+}
+
+/* ── Recipe card ───────────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBody {
+  padding: 1.25rem 1.5rem;
+}
+
+.recipeName {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.recipeLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ── Actions ───────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.btnNewIdea {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  flex: 1;
+}
+
+.btnNewIdea:hover:not(:disabled) {
+  background: var(--color-border);
+}
+
+/* ── Feedback ──────────────────────────────────────────────── */
+.feedback {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.feedbackQuestion {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.feedbackButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btnLike {
+  background: var(--color-liked-bg);
+  color: var(--color-liked);
+  flex: 1;
+  border: 1px solid rgba(15, 153, 96, 0.2);
+}
+
+.btnLike:hover {
+  background: #c3edd9;
+}
+
+.btnDislike {
+  background: var(--color-disliked-bg);
+  color: var(--color-disliked);
+  flex: 1;
+  border: 1px solid rgba(224, 62, 62, 0.2);
+}
+
+.btnDislike:hover {
+  background: #f9c9c9;
+}
+
+/* ── State pages (loading / error / empty) ─────────────────── */
+.statePage {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.stateText {
+  color: var(--color-text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.btnBack {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btnBack:hover {
+  background: var(--color-accent-hover);
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchIngredients } from '../services/mealdb'
+import styles from './IngredientPicker.module.css'
 
 interface Props {
   value: string
@@ -40,10 +41,13 @@ export function IngredientPicker({ value, onSelect }: Props) {
   if (isError) return <p>Failed to load ingredients.</p>
 
   return (
-    <div>
-      <label htmlFor="ingredient-input">Ingredient</label>
+    <div className={styles.wrapper}>
+      <label className={styles.label} htmlFor="ingredient-input">
+        Ingredient
+      </label>
       <input
         id="ingredient-input"
+        className={styles.input}
         type="text"
         value={query}
         onChange={(e) => handleChange(e.target.value)}
@@ -52,14 +56,14 @@ export function IngredientPicker({ value, onSelect }: Props) {
       />
 
       {suggestions.length > 0 && (
-        <ul role="listbox" aria-label="Ingredient suggestions">
+        <ul className={styles.suggestions} role="listbox" aria-label="Ingredient suggestions">
           {suggestions.map((i) => (
             <li
               key={i.strIngredient}
+              className={styles.suggestion}
               role="option"
               aria-selected={i.strIngredient === value}
               onClick={() => handleSelect(i.strIngredient)}
-              style={{ cursor: 'pointer' }}
             >
               {i.strIngredient}
             </li>
