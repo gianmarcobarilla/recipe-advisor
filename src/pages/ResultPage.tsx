@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
+import { saveHistoryEntry } from '../services/storage'
 
 export const ResultPage = () => {
   const location = useLocation()
@@ -22,7 +23,6 @@ export const ResultPage = () => {
     enabled: !!ingredient && !!area,
   })
 
-  console.log('Meals found:', meals)
   const pickedMeal = meals && meals.length > 0 ? meals[index % meals.length] : null
 
   const { data: mealDetail, isLoading: isLoadingDetail } = useQuery({
@@ -74,6 +74,19 @@ export const ResultPage = () => {
     setIndex((i) => i + 1)
   }
 
+  function handleFeedback(liked: boolean) {
+    saveHistoryEntry({
+      id: crypto.randomUUID(),
+      recipeId: mealDetail!.idMeal,
+      recipeTitle: mealDetail!.strMeal,
+      recipeThumb: mealDetail!.strMealThumb,
+      liked,
+      timestamp: Date.now(),
+      ingredient,
+      area,
+    })
+  }
+
   return (
     <div>
       <h1>Your recipe</h1>
@@ -100,6 +113,12 @@ export const ResultPage = () => {
       <button onClick={handleNewIdea} disabled={meals.length <= 1}>
         New Idea
       </button>
+
+      <section>
+        <p>Did it match your preference?</p>
+        <button onClick={() => handleFeedback(true)}>Like</button>
+        <button onClick={() => handleFeedback(false)}>Dislike</button>
+      </section>
     </div>
   )
 }
