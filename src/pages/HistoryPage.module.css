@@ -16,6 +16,18 @@
   letter-spacing: -0.02em;
 }
 
+.btnClear {
+  font-size: 0.8rem;
+  color: var(--color-disliked);
+  background: none;
+  border: 1px solid rgba(224, 62, 62, 0.3);
+  padding: 0.3rem 0.7rem;
+}
+
+.btnClear:hover {
+  background: var(--color-disliked-bg);
+}
+
 /* ── Entry list ────────────────────────────────────────────── */
 .list {
   list-style: none;

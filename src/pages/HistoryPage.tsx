@@ -1,14 +1,23 @@
-import { loadHistory } from '../services/storage'
+import { useState } from 'react'
+import { loadHistory, clearHistory } from '../services/storage'
 import { FeedbackBadge } from '../components/FeedbackBadge'
 import styles from './HistoryPage.module.css'
 
 export const HistoryPage = () => {
-  const entries = loadHistory()
+  const [entries, setEntries] = useState(() => loadHistory())
+
+  function handleClear() {
+    clearHistory()
+    setEntries([])
+  }
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.title}>History</h1>
+        <button className={styles.btnClear} onClick={handleClear} disabled={entries.length === 0}>
+          Clear all
+        </button>
       </div>
 
       {entries.length === 0 ? (

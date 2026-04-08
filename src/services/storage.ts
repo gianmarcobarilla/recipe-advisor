@@ -17,3 +17,7 @@ export function saveHistoryEntry(entry: HistoryEntry): void {
   history.unshift(entry)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(history))
 }
+
+export function clearHistory(): void {
+  localStorage.removeItem(STORAGE_KEY)
+}

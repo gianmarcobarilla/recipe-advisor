@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { loadHistory, saveHistoryEntry } from './storage'
+import { loadHistory, saveHistoryEntry, clearHistory } from './storage'
 import type { HistoryEntry } from '../types'
 
 const makeEntry = (overrides: Partial<HistoryEntry> = {}): HistoryEntry => ({
@@ -57,5 +57,19 @@ describe('saveHistoryEntry', () => {
     saveHistoryEntry(makeEntry({ id: 'b' }))
     saveHistoryEntry(makeEntry({ id: 'c' }))
     expect(loadHistory()).toHaveLength(3)
+  })
+})
+
+describe('clearHistory', () => {
+  it('empties the history', () => {
+    saveHistoryEntry(makeEntry({ id: 'a' }))
+    saveHistoryEntry(makeEntry({ id: 'b' }))
+    clearHistory()
+    expect(loadHistory()).toEqual([])
+  })
+
+  it('is a no-op when history is already empty', () => {
+    clearHistory()
+    expect(loadHistory()).toEqual([])
   })
 })
