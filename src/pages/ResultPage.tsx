@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
+import { selectMeal } from '../services/recommendation'
 
 export const ResultPage = () => {
   const location = useLocation()
@@ -23,7 +24,7 @@ export const ResultPage = () => {
     enabled: !!ingredient && !!area,
   })
 
-  const pickedMeal = meals && meals.length > 0 ? meals[index % meals.length] : null
+  const pickedMeal = selectMeal(meals ?? [], index)
 
   const { data: mealDetail, isLoading: isLoadingDetail } = useQuery({
     queryKey: ['meal', pickedMeal?.idMeal],
