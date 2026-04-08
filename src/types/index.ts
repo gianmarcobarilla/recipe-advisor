@@ -66,6 +66,8 @@ export interface HistoryEntry {
   recipeThumb: string
   liked: boolean
   timestamp: number
+  ingredient: string
+  area: string
 }
 
 export interface WizardState {
