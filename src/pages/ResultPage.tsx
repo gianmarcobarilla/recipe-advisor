@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
 import { selectMeal } from '../services/recommendation'
+import { Button } from '../components/Button'
 import styles from './ResultPage.module.css'
 
 export const ResultPage = () => {
@@ -49,9 +50,9 @@ export const ResultPage = () => {
     return (
       <div className={styles.statePage}>
         <p className={styles.stateText}>Something went wrong.</p>
-        <button className={styles.btnBack} onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => navigate('/')}>
           Try again
-        </button>
+        </Button>
       </div>
     )
   }
@@ -62,9 +63,9 @@ export const ResultPage = () => {
         <p className={styles.stateText}>
           No <strong>{area}</strong> recipes found for <strong>{ingredient}</strong>.
         </p>
-        <button className={styles.btnBack} onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => navigate('/')}>
           Start over
-        </button>
+        </Button>
       </div>
     )
   }
@@ -73,9 +74,9 @@ export const ResultPage = () => {
     return (
       <div className={styles.statePage}>
         <p className={styles.stateText}>You've seen all the recipes for that combination!</p>
-        <button className={styles.btnBack} onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => navigate('/')}>
           Start over
-        </button>
+        </Button>
       </div>
     )
   }
@@ -102,7 +103,7 @@ export const ResultPage = () => {
 
   return (
     <div className={styles.page}>
-      <p className={styles.title}>Here's your recipe</p>
+      <p className={styles.title}>Here's your recipe:</p>
 
       <article className={styles.card}>
         <img
@@ -142,11 +143,9 @@ export const ResultPage = () => {
         </div>
       </section>
 
-      <div className={styles.actions}>
-        <button className={styles.btnNewIdea} onClick={handleNewIdea}>
-          Try another →
-        </button>
-      </div>
+      <Button variant="primary" style={{ flex: 1 }} onClick={handleNewIdea}>
+        New Idea →
+      </Button>
     </div>
   )
 }

@@ -33,24 +33,3 @@
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
-
-.btnPrimary {
-  background-color: var(--color-accent);
-  color: #fff;
-  flex: 1;
-}
-
-.btnPrimary:hover:not(:disabled) {
-  background-color: var(--color-accent-hover);
-}
-
-.btnSecondary {
-  background-color: var(--color-bg);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-}
-
-.btnSecondary:hover:not(:disabled) {
-  background-color: var(--color-border);
-  color: var(--color-text);
-}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { IngredientPicker } from '../components/IngredientPicker'
 import { AreaPicker } from '../components/AreaPicker'
+import { Button } from '../components/Button'
 import styles from './WizardPage.module.css'
 
 export const WizardPage = () => {
@@ -22,9 +23,14 @@ export const WizardPage = () => {
           <h1 className={styles.title}>What ingredient?</h1>
           <IngredientPicker value={ingredient} onSelect={setIngredient} />
           <div className={styles.actions}>
-            <button className={styles.btnPrimary} onClick={() => setStep(2)} disabled={!ingredient}>
+            <Button
+              variant="primary"
+              style={{ flex: 1 }}
+              onClick={() => setStep(2)}
+              disabled={!ingredient}
+            >
               Next →
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -38,12 +44,12 @@ export const WizardPage = () => {
         <h1 className={styles.title}>Which cuisine?</h1>
         <AreaPicker value={area} onChange={setArea} />
         <div className={styles.actions}>
-          <button className={styles.btnSecondary} onClick={() => setStep(1)}>
+          <Button variant="secondary" onClick={() => setStep(1)}>
             ← Back
-          </button>
-          <button className={styles.btnPrimary} onClick={handleSubmit} disabled={!area}>
+          </Button>
+          <Button variant="primary" style={{ flex: 1 }} onClick={handleSubmit} disabled={!area}>
             Find a recipe
-          </button>
+          </Button>
         </div>
       </div>
     </div>

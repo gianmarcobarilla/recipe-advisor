@@ -62,24 +62,6 @@
   font-weight: 500;
 }
 
-/* ── Actions ───────────────────────────────────────────────── */
-.actions {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-.btnNewIdea {
-  background: var(--color-bg);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  flex: 1;
-}
-
-.btnNewIdea:hover:not(:disabled) {
-  background: var(--color-border);
-}
-
 /* ── Feedback ──────────────────────────────────────────────── */
 .feedback {
   background: var(--color-surface);
@@ -133,13 +115,4 @@
 .stateText {
   color: var(--color-text-muted);
   margin-bottom: 1.25rem;
-}
-
-.btnBack {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-.btnBack:hover {
-  background: var(--color-accent-hover);
 }

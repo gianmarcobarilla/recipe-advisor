@@ -74,31 +74,6 @@
   color: var(--color-text-muted);
 }
 
-/* ── Badges ────────────────────────────────────────────────── */
-.badgeLiked {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: var(--color-liked-bg);
-  color: var(--color-liked);
-  border: 1px solid rgba(15, 153, 96, 0.2);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.badgeDisliked {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: var(--color-disliked-bg);
-  color: var(--color-disliked);
-  border: 1px solid rgba(224, 62, 62, 0.2);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
 /* ── Empty state ───────────────────────────────────────────── */
 .empty {
   text-align: center;

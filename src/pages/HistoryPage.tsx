@@ -1,4 +1,5 @@
 import { loadHistory } from '../services/storage'
+import { FeedbackBadge } from '../components/FeedbackBadge'
 import styles from './HistoryPage.module.css'
 
 export const HistoryPage = () => {
@@ -38,12 +39,7 @@ export const HistoryPage = () => {
                   </span>
                 </div>
               </div>
-              <span
-                className={entry.liked ? styles.badgeLiked : styles.badgeDisliked}
-                aria-label={entry.liked ? 'Liked' : 'Disliked'}
-              >
-                {entry.liked ? '👍 Liked' : '👎 Disliked'}
-              </span>
+              <FeedbackBadge liked={entry.liked} />
             </li>
           ))}
         </ul>
