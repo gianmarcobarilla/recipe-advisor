@@ -1,24 +1,42 @@
-import { useQuery } from '@tanstack/react-query'
-import { fetchIngredients } from '../services/mealdb'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { IngredientPicker } from '../components/IngredientPicker'
+import { AreaPicker } from '../components/AreaPicker'
 
 export const WizardPage = () => {
-  const {
-    data: ingredients,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['ingredients'],
-    queryFn: fetchIngredients,
-  })
+  const navigate = useNavigate()
+  const [step, setStep] = useState<1 | 2>(1)
+  const [ingredient, setIngredient] = useState('')
+  const [area, setArea] = useState('')
 
-  if (isLoading) return <p>Loading ingredients...</p>
-  if (isError) return <p>Failed to load ingredients.</p>
+  function handleSubmit() {
+    navigate('/result', { state: { ingredient, area } })
+  }
+
+  if (step === 1) {
+    return (
+      <div>
+        <p>Step 1 of 2</p>
+        <h1>Choose an ingredient</h1>
+        <IngredientPicker value={ingredient} onSelect={setIngredient} />
+        <button onClick={() => setStep(2)} disabled={!ingredient}>
+          Next
+        </button>
+      </div>
+    )
+  }
 
   return (
-    <ul>
-      {ingredients?.map((i) => (
-        <li key={i.strIngredient}>{i.strIngredient}</li>
-      ))}
-    </ul>
+    <div>
+      <p>Step 2 of 2</p>
+      <h1>Choose a cuisine</h1>
+      <AreaPicker value={area} onChange={setArea} />
+      <div>
+        <button onClick={() => setStep(1)}>Back</button>
+        <button onClick={handleSubmit} disabled={!area}>
+          Find a recipe
+        </button>
+      </div>
+    </div>
   )
 }
