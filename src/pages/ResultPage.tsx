@@ -15,6 +15,7 @@ export const ResultPage = () => {
   const area = state?.area ?? ''
 
   const [index, setIndex] = useState(0)
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
   const {
     data: meals,
@@ -85,6 +86,7 @@ export const ResultPage = () => {
 
   function handleNewIdea() {
     setIndex((i) => i + 1)
+    setFeedbackSubmitted(false)
   }
 
   function handleFeedback(liked: boolean) {
@@ -98,7 +100,7 @@ export const ResultPage = () => {
       ingredient,
       area,
     })
-    navigate('/history')
+    setFeedbackSubmitted(true)
   }
 
   return (
@@ -134,13 +136,22 @@ export const ResultPage = () => {
       <section className={styles.feedback}>
         <p className={styles.feedbackQuestion}>Did it match your preference?</p>
         <div className={styles.feedbackButtons}>
-          <button className={styles.btnLike} onClick={() => handleFeedback(true)}>
+          <button
+            className={styles.btnLike}
+            onClick={() => handleFeedback(true)}
+            disabled={feedbackSubmitted}
+          >
             👍 Like
           </button>
-          <button className={styles.btnDislike} onClick={() => handleFeedback(false)}>
+          <button
+            className={styles.btnDislike}
+            onClick={() => handleFeedback(false)}
+            disabled={feedbackSubmitted}
+          >
             👎 Dislike
           </button>
         </div>
+        {feedbackSubmitted && <p className={styles.feedbackConfirm}>Feedback submitted!</p>}
       </section>
 
       <Button variant="primary" style={{ flex: 1 }} onClick={handleNewIdea}>

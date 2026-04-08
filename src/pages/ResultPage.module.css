@@ -82,6 +82,14 @@
   gap: 0.75rem;
 }
 
+.feedbackConfirm {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
 .btnLike {
   background: var(--color-liked-bg);
   color: var(--color-liked);
