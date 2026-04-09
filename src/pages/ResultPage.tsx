@@ -5,6 +5,7 @@ import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
 import { selectMeal } from '../services/recommendation'
 import { Button } from '../components/Button'
+import placeholderImg from '../assets/images/recipe_placeholder.png'
 import styles from './ResultPage.module.css'
 
 export const ResultPage = () => {
@@ -113,7 +114,7 @@ export const ResultPage = () => {
           src={mealDetail.strMealThumb}
           alt={mealDetail.strMeal}
           onError={(e) => {
-            ;(e.target as HTMLImageElement).src = 'src/assets/images/recipe_placeholder.png'
+            ;(e.target as HTMLImageElement).src = placeholderImg
           }}
         />
         <div className={styles.cardBody}>

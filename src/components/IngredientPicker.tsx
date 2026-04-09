@@ -99,7 +99,7 @@ export function IngredientPicker({ value, onSelect }: Props) {
         value={query}
         onChange={(e) => handleChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="e.g. Chicken"
+        placeholder="e.g. Tomato"
         autoComplete="off"
       />
 

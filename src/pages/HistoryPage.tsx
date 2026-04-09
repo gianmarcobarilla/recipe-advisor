@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { loadHistory, clearHistory } from '../services/storage'
 import { FeedbackBadge } from '../components/FeedbackBadge'
+import placeholderImg from '../assets/images/recipe_placeholder.png'
 import styles from './HistoryPage.module.css'
 
 export const HistoryPage = () => {
@@ -31,7 +32,7 @@ export const HistoryPage = () => {
                 src={entry.recipeThumb}
                 alt={entry.recipeTitle}
                 onError={(e) => {
-                  ;(e.target as HTMLImageElement).src = 'src/assets/images/recipe_placeholder.png'
+                  ;(e.target as HTMLImageElement).src = placeholderImg
                 }}
               />
               <div className={styles.entryBody}>
