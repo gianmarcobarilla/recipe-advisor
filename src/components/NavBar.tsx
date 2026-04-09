@@ -14,7 +14,7 @@ export function NavBar() {
         <button className={styles.logo} onClick={handleHome} aria-label="Start over">
           Recipe Advisor
         </button>
-        <Link className={styles.historyLink} to="/history">
+        <Link className={styles.historyLink} to="/history" replace>
           History
         </Link>
       </nav>

@@ -65,7 +65,7 @@ export const ResultPage = () => {
         <p className={styles.stateText}>
           No <strong>{area}</strong> recipes found for <strong>{ingredient}</strong>.
         </p>
-        <Button variant="primary" onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => navigate('/', { replace: true })}>
           Start over
         </Button>
       </div>
@@ -76,7 +76,7 @@ export const ResultPage = () => {
     return (
       <div className={styles.statePage}>
         <p className={styles.stateText}>You've seen all the recipes for that combination!</p>
-        <Button variant="primary" onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => navigate('/', { replace: true })}>
           Start over
         </Button>
       </div>
@@ -108,7 +108,7 @@ export const ResultPage = () => {
     <div className={styles.page}>
       <p className={styles.title}>Here's your recipe:</p>
 
-      <article className={styles.card}>
+      <article className={styles.card} aria-labelledby="recipe-title">
         <img
           className={styles.image}
           src={mealDetail.strMealThumb}
@@ -118,7 +118,9 @@ export const ResultPage = () => {
           }}
         />
         <div className={styles.cardBody}>
-          <h1 className={styles.recipeName}>{mealDetail.strMeal}</h1>
+          <h1 id="recipe-title" className={styles.recipeName}>
+            {mealDetail.strMeal}
+          </h1>
           <div className={styles.meta}>
             <span className={styles.badge}>{mealDetail.strCategory}</span>
             <span className={styles.badge}>{mealDetail.strArea}</span>
@@ -152,7 +154,11 @@ export const ResultPage = () => {
             👎 Dislike
           </button>
         </div>
-        {feedbackSubmitted && <p className={styles.feedbackConfirm}>Feedback submitted!</p>}
+        {feedbackSubmitted && (
+          <p role="status" className={styles.feedbackConfirm}>
+            Feedback submitted!
+          </p>
+        )}
       </section>
 
       <Button variant="primary" style={{ flex: 1 }} onClick={handleNewIdea}>
