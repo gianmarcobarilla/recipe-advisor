@@ -38,7 +38,6 @@ export const WizardPage = () => {
 
   const isLoadingAreas = areaRecipesResults.some((q) => q.isLoading)
 
-  console.log(areaRecipesResults)
   const availableAreas = (allAreas ?? [])
     .filter((_, i) => {
       const meals = areaRecipesResults[i]?.data ?? []

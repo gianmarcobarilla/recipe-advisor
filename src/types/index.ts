@@ -69,8 +69,3 @@ export interface HistoryEntry {
   ingredient: string
   area: string
 }
-
-export interface WizardState {
-  area: string
-  ingredient: string
-}
