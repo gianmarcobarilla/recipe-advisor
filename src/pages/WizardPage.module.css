@@ -32,7 +32,7 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
-  justify-self: center;
+  margin-inline: auto;
   width: fit-content;
   color: var(--color-text);
   background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3);
