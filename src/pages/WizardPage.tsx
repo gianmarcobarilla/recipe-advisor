@@ -51,6 +51,7 @@ export const WizardPage = () => {
 
   return (
     <div className={styles.page}>
+      <title>Recipe Advisor</title>
       <h1 className={styles.title}>Hungry?</h1>
       <div className={styles.card}>
         <p className={styles.stepIndicator}>Step {step} of 2</p>

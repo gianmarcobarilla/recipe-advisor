@@ -107,6 +107,7 @@ export const ResultPage = () => {
 
   return (
     <div className={styles.page}>
+      <title>Recipe Result | Recipe Advisor</title>
       <p className={styles.title}>Here's your recipe:</p>
 
       <RecipeCard meal={mealDetail} />

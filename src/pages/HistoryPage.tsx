@@ -14,6 +14,7 @@ export const HistoryPage = () => {
 
   return (
     <div className={styles.page}>
+      <title>History | Recipe Advisor</title>
       <div className={styles.header}>
         <h1 className={styles.title}>History</h1>
         <Button
