@@ -103,7 +103,15 @@ export const ResultPage = () => {
     )
   }
 
-  if (!mealDetail) return null
+  if (!mealDetail)
+    return (
+      <div className={styles.statePage}>
+        <p className={styles.stateText}>Recipe not found.</p>
+        <Button variant="primary" onClick={() => void navigate('/', { replace: true })}>
+          Start over
+        </Button>
+      </div>
+    )
 
   return (
     <div className={styles.page}>
