@@ -7,6 +7,7 @@ import { selectMeal } from '../services/recommendation'
 import { Button } from '../components/Button'
 import placeholderImg from '../assets/images/recipe_placeholder.png'
 import styles from './ResultPage.module.css'
+import type { Meal } from '../types'
 
 export const ResultPage = () => {
   const location = useLocation()
@@ -35,6 +36,25 @@ export const ResultPage = () => {
     queryFn: () => fetchMealById(pickedMeal!.idMeal),
     enabled: !!pickedMeal,
   })
+
+  function handleNewIdea() {
+    setIndex((i) => i + 1)
+    setFeedbackSubmitted(false)
+  }
+
+  function handleFeedback(liked: boolean, meal: Meal) {
+    saveHistoryEntry({
+      id: crypto.randomUUID(),
+      recipeId: meal.idMeal,
+      recipeTitle: meal.strMeal,
+      recipeThumb: meal.strMealThumb,
+      liked,
+      timestamp: Date.now(),
+      ingredient,
+      area,
+    })
+    setFeedbackSubmitted(true)
+  }
 
   if (!ingredient || !area) {
     return <Navigate to="/" replace />
@@ -85,25 +105,6 @@ export const ResultPage = () => {
 
   if (!mealDetail) return null
 
-  function handleNewIdea() {
-    setIndex((i) => i + 1)
-    setFeedbackSubmitted(false)
-  }
-
-  function handleFeedback(liked: boolean) {
-    saveHistoryEntry({
-      id: crypto.randomUUID(),
-      recipeId: mealDetail!.idMeal,
-      recipeTitle: mealDetail!.strMeal,
-      recipeThumb: mealDetail!.strMealThumb,
-      liked,
-      timestamp: Date.now(),
-      ingredient,
-      area,
-    })
-    setFeedbackSubmitted(true)
-  }
-
   return (
     <div className={styles.page}>
       <p className={styles.title}>Here's your recipe:</p>
@@ -141,14 +142,14 @@ export const ResultPage = () => {
         <div className={styles.feedbackButtons}>
           <button
             className={styles.btnLike}
-            onClick={() => handleFeedback(true)}
+            onClick={() => handleFeedback(true, mealDetail)}
             disabled={feedbackSubmitted}
           >
             👍 Like
           </button>
           <button
             className={styles.btnDislike}
-            onClick={() => handleFeedback(false)}
+            onClick={() => handleFeedback(false, mealDetail)}
             disabled={feedbackSubmitted}
           >
             👎 Dislike

@@ -97,7 +97,7 @@
   border: 1px solid rgba(15, 153, 96, 0.2);
 }
 
-.btnLike:hover {
+.btnLike:hover:not(:disabled) {
   background: #c3edd9;
 }
 
@@ -108,7 +108,7 @@
   border: 1px solid rgba(224, 62, 62, 0.2);
 }
 
-.btnDislike:hover {
+.btnDislike:hover:not(:disabled) {
   background: #f9c9c9;
 }
 
