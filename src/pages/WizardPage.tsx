@@ -13,12 +13,12 @@ export const WizardPage = () => {
   const [ingredient, setIngredient] = useState('')
   const [area, setArea] = useState('')
 
-  const { data: allAreas } = useQuery({
+  const { data: allAreas, isError: isAreasError } = useQuery({
     queryKey: ['areas'],
     queryFn: fetchAreas,
   })
 
-  const { data: byIngredient } = useQuery({
+  const { data: byIngredient, isError: isByIngredientError } = useQuery({
     queryKey: ['filter', 'ingredient', ingredient],
     queryFn: () => filterByIngredient(ingredient),
     enabled: !!ingredient,
@@ -75,12 +75,16 @@ export const WizardPage = () => {
             <h2 className={styles.stepDescription}>
               Now pick a cuisine for your {ingredient.toLowerCase()}.
             </h2>
-            <AreaPicker
-              value={area}
-              onChange={setArea}
-              availableAreas={availableAreas}
-              isLoading={isLoadingAreas}
-            />
+            {isAreasError || isByIngredientError ? (
+              <p className={styles.stateError}>Failed to load cuisines. Please refresh the page.</p>
+            ) : (
+              <AreaPicker
+                value={area}
+                onChange={setArea}
+                availableAreas={availableAreas}
+                isLoading={isLoadingAreas}
+              />
+            )}
             <div className={styles.actions}>
               <Button variant="secondary" onClick={() => setStep(1)}>
                 ← Back
