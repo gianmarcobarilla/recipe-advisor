@@ -1,6 +1,6 @@
 /* ── Design tokens ─────────────────────────────────────────── */
 :root {
-  --color-bg: #f7f6f3;
+  --color-bg: #f7f6f3f1;
   --color-surface: #ffffff;
   --color-border: #e3e2e0;
   --color-text: #37352f;
@@ -11,13 +11,19 @@
   --color-disliked: #e03e3e;
   --color-liked-bg: #e6f7ef;
   --color-disliked-bg: #fdecea;
+  --color-liked-bg-hover: #c3edd9;
+  --color-disliked-bg-hover: #f9c9c9;
+  --color-liked-border: #0f996033;
+  --color-disliked-border: #e03e3e33;
+  --color-danger-border: #e03e3e4d;
 
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-pill: 999px;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px #00000014;
+  --shadow-md: 0 4px 12px #0000001a;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
