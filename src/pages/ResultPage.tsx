@@ -5,7 +5,7 @@ import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
 import { selectMeal } from '../services/recommendation'
 import { Button } from '../components/Button'
-import placeholderImg from '../assets/images/recipe_placeholder.png'
+import { RecipeCard } from '../components/RecipeCard'
 import styles from './ResultPage.module.css'
 import type { Meal } from '../types'
 
@@ -109,33 +109,7 @@ export const ResultPage = () => {
     <div className={styles.page}>
       <p className={styles.title}>Here's your recipe:</p>
 
-      <article className={styles.card} aria-labelledby="recipe-title">
-        <img
-          className={styles.image}
-          src={mealDetail.strMealThumb}
-          alt={mealDetail.strMeal}
-          onError={(e) => {
-            ;(e.target as HTMLImageElement).src = placeholderImg
-          }}
-        />
-        <div className={styles.cardBody}>
-          <h1 id="recipe-title" className={styles.recipeName}>
-            {mealDetail.strMeal}
-          </h1>
-          <div className={styles.meta}>
-            <span className={styles.badge}>{mealDetail.strCategory}</span>
-            <span className={styles.badge}>{mealDetail.strArea}</span>
-          </div>
-          <a
-            className={styles.recipeLink}
-            href={`https://www.themealdb.com/meal/${mealDetail.idMeal}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View full recipe ↗
-          </a>
-        </div>
-      </article>
+      <RecipeCard meal={mealDetail} />
 
       <section className={styles.feedback}>
         <p className={styles.feedbackQuestion}>Did it match your preference?</p>

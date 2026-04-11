@@ -18,22 +18,12 @@
   color: var(--color-text);
 }
 
-.like {
-  background: var(--color-liked-bg);
-  color: var(--color-liked);
-  border: 1px solid rgba(15, 153, 96, 0.2);
-}
-
-.like:hover:not(:disabled) {
-  background: #c3edd9;
-}
-
-.dislike {
-  background: var(--color-disliked-bg);
+.danger {
+  background: none;
   color: var(--color-disliked);
-  border: 1px solid rgba(224, 62, 62, 0.2);
+  border: 1px solid var(--color-danger-border);
 }
 
-.dislike:hover:not(:disabled) {
-  background: #f9c9c9;
+.danger:hover:not(:disabled) {
+  background: var(--color-disliked-bg);
 }

@@ -49,47 +49,47 @@ export const WizardPage = () => {
     void navigate('/result', { state: { ingredient, area } })
   }
 
-  if (step === 1) {
-    return (
-      <div className={styles.page}>
-        <div className={styles.card}>
-          <p className={styles.stepIndicator}>Step 1 of 2</p>
-          <h1 className={styles.title}>What ingredient?</h1>
-          <IngredientPicker value={ingredient} onSelect={setIngredient} />
-          <div className={styles.actions}>
-            <Button
-              variant="primary"
-              style={{ flex: 1 }}
-              onClick={() => setStep(2)}
-              disabled={!ingredient}
-            >
-              Next →
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className={styles.page}>
+      <h1 className={styles.title}>Hungry?</h1>
       <div className={styles.card}>
-        <p className={styles.stepIndicator}>Step 2 of 2</p>
-        <h1 className={styles.title}>Which cuisine?</h1>
-        <AreaPicker
-          value={area}
-          onChange={setArea}
-          availableAreas={availableAreas}
-          isLoading={isLoadingAreas}
-        />
-        <div className={styles.actions}>
-          <Button variant="secondary" onClick={() => setStep(1)}>
-            ← Back
-          </Button>
-          <Button variant="primary" style={{ flex: 1 }} onClick={handleSubmit} disabled={!area}>
-            Find a recipe
-          </Button>
-        </div>
+        <p className={styles.stepIndicator}>Step {step} of 2</p>
+        {step === 1 ? (
+          <>
+            <h2 className={styles.stepDescription}>Choose an ingredient</h2>
+            <IngredientPicker value={ingredient} onSelect={setIngredient} />
+            <div className={styles.actions}>
+              <Button
+                variant="primary"
+                style={{ flex: 1 }}
+                onClick={() => setStep(2)}
+                disabled={!ingredient}
+              >
+                Next →
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className={styles.stepDescription}>
+              Now pick a cuisine for your {ingredient.toLowerCase()}.
+            </h2>
+            <AreaPicker
+              value={area}
+              onChange={setArea}
+              availableAreas={availableAreas}
+              isLoading={isLoadingAreas}
+            />
+            <div className={styles.actions}>
+              <Button variant="secondary" onClick={() => setStep(1)}>
+                ← Back
+              </Button>
+              <Button variant="primary" style={{ flex: 1 }} onClick={handleSubmit} disabled={!area}>
+                Find a recipe
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

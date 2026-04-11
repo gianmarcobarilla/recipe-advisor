@@ -20,12 +20,25 @@
   margin-bottom: 0.5rem;
 }
 
-.title {
+.stepDescription {
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
   color: var(--color-text);
+}
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  justify-self: center;
+  width: fit-content;
+  color: var(--color-text);
+  background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .actions {

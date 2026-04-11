@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { loadHistory, clearHistory } from '../services/storage'
-import { FeedbackBadge } from '../components/FeedbackBadge'
-import placeholderImg from '../assets/images/recipe_placeholder.png'
+import { Button } from '../components/Button'
+import { HistoryCard } from '../components/HistoryCard'
 import styles from './HistoryPage.module.css'
 
 export const HistoryPage = () => {
@@ -16,9 +16,14 @@ export const HistoryPage = () => {
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.title}>History</h1>
-        <button className={styles.btnClear} onClick={handleClear} disabled={entries.length === 0}>
+        <Button
+          variant="danger"
+          className={styles.btnClear}
+          onClick={handleClear}
+          disabled={entries.length === 0}
+        >
           Clear all
-        </button>
+        </Button>
       </div>
 
       {entries.length === 0 ? (
@@ -26,31 +31,7 @@ export const HistoryPage = () => {
       ) : (
         <ul className={styles.list}>
           {entries.map((entry) => (
-            <li key={entry.id} className={styles.entry}>
-              <img
-                className={styles.thumb}
-                src={entry.recipeThumb}
-                alt={entry.recipeTitle}
-                onError={(e) => {
-                  ;(e.target as HTMLImageElement).src = placeholderImg
-                }}
-              />
-              <div className={styles.entryBody}>
-                <p className={styles.entryTitle}>{entry.recipeTitle}</p>
-                <div className={styles.entryMeta}>
-                  <span className={styles.entryTag}>
-                    {entry.ingredient} · {entry.area}
-                  </span>
-                  <span className={styles.entryDate}>
-                    {new Date(entry.timestamp).toLocaleString(undefined, {
-                      dateStyle: 'medium',
-                      timeStyle: 'short',
-                    })}
-                  </span>
-                </div>
-              </div>
-              <FeedbackBadge liked={entry.liked} />
-            </li>
+            <HistoryCard key={entry.id} entry={entry} />
           ))}
         </ul>
       )}
