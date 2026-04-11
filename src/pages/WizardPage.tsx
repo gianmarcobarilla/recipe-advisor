@@ -46,7 +46,7 @@ export const WizardPage = () => {
     .map((a) => a.strArea)
 
   function handleSubmit() {
-    navigate('/result', { state: { ingredient, area } })
+    void navigate('/result', { state: { ingredient, area } })
   }
 
   if (step === 1) {

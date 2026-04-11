@@ -52,7 +52,7 @@ export const ResultPage = () => {
     return (
       <div className={styles.statePage}>
         <p className={styles.stateText}>Something went wrong.</p>
-        <Button variant="primary" onClick={() => navigate('/')}>
+        <Button variant="primary" onClick={() => void navigate('/')}>
           Try again
         </Button>
       </div>
@@ -65,7 +65,7 @@ export const ResultPage = () => {
         <p className={styles.stateText}>
           No <strong>{area}</strong> recipes found for <strong>{ingredient}</strong>.
         </p>
-        <Button variant="primary" onClick={() => navigate('/', { replace: true })}>
+        <Button variant="primary" onClick={() => void navigate('/', { replace: true })}>
           Start over
         </Button>
       </div>
@@ -76,7 +76,7 @@ export const ResultPage = () => {
     return (
       <div className={styles.statePage}>
         <p className={styles.stateText}>You've seen all the recipes for that combination!</p>
-        <Button variant="primary" onClick={() => navigate('/', { replace: true })}>
+        <Button variant="primary" onClick={() => void navigate('/', { replace: true })}>
           Start over
         </Button>
       </div>

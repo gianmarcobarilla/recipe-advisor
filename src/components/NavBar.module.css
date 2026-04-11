@@ -22,14 +22,15 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--color-text);
-  background: none;
   padding: 0.3rem 0.6rem;
   border-radius: var(--radius-sm);
   letter-spacing: -0.02em;
+  transition: background-color 0.15s ease;
 }
 
 .logo:hover {
   background-color: var(--color-bg);
+  text-decoration: none;
 }
 
 .historyLink {
