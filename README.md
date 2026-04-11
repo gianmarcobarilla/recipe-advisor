@@ -54,11 +54,25 @@ The app has two kinds of state that need different treatment. Wizard selections 
 
 There's no global state manager like Redux or Zustand. Remote data is covered by TanStack Query; local UI state is either component-level `useState` or localStorage. Adding a dedicated state library on top would have been complexity for its own sake.
 
+### Design system
+
+All visual constants — colours, radii, shadows, and spacing anchors — are declared as CSS custom properties in `:root` (`index.css`). Component modules reference tokens (`var(--color-accent)`, `var(--shadow-md)`, etc.) and never hard-code values. This means a brand change touches one file.
+
+The `Button` component exposes three intent-based variants: `primary`, `secondary`, and `danger`. Variants map to universal UI patterns regardless of content. Buttons with domain-specific appearance (e.g. the like/dislike feedback buttons in `ResultPage`) use raw `<button>` elements with local module CSS — they're contextual, not generic, so they don't belong in the shared component.
+
+### Error handling
+
+An `ErrorBoundary` class component is colocated in `App.tsx`. It wraps the entire router tree and renders a fallback UI for any uncaught render-time error in child components. Network errors from API calls are handled at the component level via TanStack Query's `isError` state.
+
 ### UX and accessibility
 
 The ingredient field is implemented as a custom ARIA combobox instead of a native `<datalist>`. The main limitations of `<datalist>` are that it can't be styled consistently across browsers and it doesn't allow controlling how suggestions are sorted. Sorting matters here: if you type "ch", you want "Chicken" at the top, not wherever it falls alphabetically. The custom implementation follows the WAI-ARIA combobox pattern — `role="combobox"`, `aria-expanded`, `aria-controls`, `aria-activedescendant`, `role="listbox"` and `role="option"` on the dropdown — with full keyboard navigation and auto-scroll on the active item.
 
-The area selector uses a native `<select>`, which is accessible by default and appropriate given that it's a simple single-choice list with no sorting requirement. It only shows areas that have at least one recipe matching the selected ingredient, preventing users from reaching a "no results" dead end.
+The area selector uses a native `<select>`, which is accessible by default and appropriate given that it's a simple single-choice list with no sorting requirement. It only shows areas that have at least one recipe matching the selected ingredient, preventing users from reaching a "no results" dead end. During the area-filtering step, the select is replaced by a loading indicator (consistent with how `IngredientPicker` handles its own loading state), then replaced by the filtered select once results are ready.
+
+### Recommendation logic
+
+`selectMeal(meals, index)` returns the meal at the given index, or `null` if `index >= meals.length`. The `ResultPage` tracks `index` in state and increments it on each "New Idea" press; when it reaches the list length it shows an "all seen" message. There is no wrap-around: once the list is exhausted the behaviour is explicit rather than silently looping.
 
 ---
 
@@ -67,12 +81,15 @@ The area selector uses a native `<select>`, which is accessible by default and a
 ```
 src/
   assets/          Static assets (placeholder image)
-  components/      Shared UI components (NavBar, Button, FeedbackBadge, IngredientPicker, AreaPicker)
+  components/      Shared UI components
+                     NavBar, Button, FeedbackBadge
+                     IngredientPicker, AreaPicker
+                     RecipeCard, HistoryCard
   pages/           Route-level page components (WizardPage, ResultPage, HistoryPage)
   services/        API client (mealdb.ts), storage (storage.ts), recommendation logic (recommendation.ts)
   types/           TypeScript interfaces
   main.tsx         App entry — QueryClient setup + prefetch
-  App.tsx          Router + layout
+  App.tsx          Router + layout + ErrorBoundary
 ```
 
 ---
