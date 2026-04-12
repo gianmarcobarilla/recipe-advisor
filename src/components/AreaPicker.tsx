@@ -5,14 +5,19 @@ interface Props {
   onChange: (area: string) => void
   availableAreas: string[]
   isLoading?: boolean
+  isEmpty?: boolean
 }
 
-export function AreaPicker({ value, onChange, availableAreas, isLoading }: Props) {
+export function AreaPicker({ value, onChange, availableAreas, isLoading, isEmpty }: Props) {
   return (
     <div className={styles.wrapper}>
-      {isLoading || availableAreas.length === 0 ? (
+      {isLoading ? (
         <p className={styles.loading} role="status">
           Filtering cuisines…
+        </p>
+      ) : isEmpty ? (
+        <p className={styles.loading} role="status">
+          No cuisines available for this ingredient.
         </p>
       ) : (
         <>

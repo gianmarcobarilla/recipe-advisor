@@ -36,7 +36,8 @@ export const WizardPage = () => {
     })),
   })
 
-  const isLoadingAreas = areaRecipesResults.some((q) => q.isLoading)
+  const isLoadingAreas = step === 2 && areaRecipesResults.some((q) => q.isLoading)
+  const areAreasLoaded = step === 2 && areaRecipesResults.every((q) => !q.isLoading)
 
   const availableAreas = (allAreas ?? [])
     .filter((_, i) => {
@@ -83,6 +84,7 @@ export const WizardPage = () => {
                 onChange={setArea}
                 availableAreas={availableAreas}
                 isLoading={isLoadingAreas}
+                isEmpty={areAreasLoaded && availableAreas.length === 0}
               />
             )}
             <div className={styles.actions}>
