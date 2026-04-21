@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { fetchMealById, filterByIngredientAndArea } from '../services/mealdb'
 import { saveHistoryEntry } from '../services/storage'
@@ -10,11 +10,11 @@ import styles from './ResultPage.module.css'
 import type { Meal } from '../types'
 
 export const ResultPage = () => {
-  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
-  const state = location.state as { ingredient?: string; area?: string } | null
-  const ingredient = state?.ingredient ?? ''
-  const area = state?.area ?? ''
+  const ingredient = searchParams.get('ingredient') ?? ''
+  const area = searchParams.get('area') ?? ''
+  const mealId = searchParams.get('mealId') ?? ''
 
   const [index, setIndex] = useState(0)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
@@ -30,6 +30,30 @@ export const ResultPage = () => {
   })
 
   const pickedMeal = selectMeal(meals ?? [], index)
+
+  // One-time: restore index from shared URL
+  const initialSynced = useRef(false)
+  useEffect(() => {
+    if (!initialSynced.current && mealId && (meals ?? []).length > 0) {
+      const idx = (meals ?? []).findIndex((m) => m.idMeal === mealId)
+      if (idx !== -1) setIndex(idx)
+      initialSynced.current = true
+    }
+  }, [meals, mealId])
+
+  // Keep mealId in URL in sync with the currently displayed meal
+  useEffect(() => {
+    if (pickedMeal) {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev)
+          next.set('mealId', pickedMeal.idMeal)
+          return next
+        },
+        { replace: true },
+      )
+    }
+  }, [pickedMeal?.idMeal])
 
   const { data: mealDetail, isLoading: isLoadingDetail } = useQuery({
     queryKey: ['meal', pickedMeal?.idMeal],

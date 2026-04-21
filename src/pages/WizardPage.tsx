@@ -47,7 +47,8 @@ export const WizardPage = () => {
     .map((a) => a.strArea)
 
   function handleSubmit() {
-    void navigate('/result', { state: { ingredient, area } })
+    const params = new URLSearchParams({ ingredient, area })
+    void navigate(`/result?${params.toString()}`)
   }
 
   return (
