@@ -32,45 +32,49 @@ export const HistoryPage = () => {
     <div className={styles.page}>
       <title>History | Recipe Advisor</title>
       <div className={styles.header}>
-        <h1 className={styles.title}>History</h1>
-        <Button
-          variant="danger"
-          className={styles.btnClear}
-          onClick={handleClear}
-          disabled={entries.length === 0}
-        >
-          Clear all
-        </Button>
-        <div className={styles.filters} role="group" aria-label="Filter by feedback">
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>History</h1>
           <Button
-            aria-pressed={filterByLiked === 'all'}
-            variant="primary"
-            onClick={() => setFilterByLiked('all')}
+            variant="danger"
+            className={styles.btnClear}
+            onClick={handleClear}
+            disabled={entries.length === 0}
           >
-            All
-          </Button>
-          <Button
-            aria-pressed={filterByLiked === 'liked'}
-            variant="primary"
-            onClick={() => setFilterByLiked('liked')}
-          >
-            Liked
-          </Button>
-          <Button
-            aria-pressed={filterByLiked === 'disliked'}
-            variant="primary"
-            onClick={() => setFilterByLiked('disliked')}
-          >
-            Disliked
+            Clear all
           </Button>
         </div>
-        <Button
-          variant="secondary"
-          aria-label={`Sort by date, currently ${sortByDate === 'descending' ? 'newest first' : 'oldest first'}`}
-          onClick={() => setSortByDate(sortByDate === 'ascending' ? 'descending' : 'ascending')}
-        >
-          Date {sortByDate === 'descending' ? '↓' : '↑'}
-        </Button>
+        <div className={styles.filtersAndSort} role="group" aria-label="Filter by feedback">
+          <div className={styles.filters}>
+            <Button
+              aria-pressed={filterByLiked === 'all'}
+              variant={filterByLiked === 'all' ? 'primary' : 'secondary'}
+              onClick={() => setFilterByLiked('all')}
+            >
+              All
+            </Button>
+            <Button
+              aria-pressed={filterByLiked === 'liked'}
+              variant={filterByLiked === 'liked' ? 'primary' : 'secondary'}
+              onClick={() => setFilterByLiked('liked')}
+            >
+              Liked
+            </Button>
+            <Button
+              aria-pressed={filterByLiked === 'disliked'}
+              variant={filterByLiked === 'disliked' ? 'primary' : 'secondary'}
+              onClick={() => setFilterByLiked('disliked')}
+            >
+              Disliked
+            </Button>
+          </div>
+          <Button
+            variant="secondary"
+            aria-label={`Sort by date, currently ${sortByDate === 'descending' ? 'newest first' : 'oldest first'}`}
+            onClick={() => setSortByDate(sortByDate === 'ascending' ? 'descending' : 'ascending')}
+          >
+            Date {sortByDate === 'descending' ? '↓' : '↑'}
+          </Button>
+        </div>
       </div>
 
       {filteredEntries.length === 0 ? (
